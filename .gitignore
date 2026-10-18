@@ -7,4 +7,5 @@
 .externalNativeBuild
 .cxx
 local.properties
-auracast-viewer/.idea
+/auracast-viewer
+./gradlew.bat
