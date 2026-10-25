@@ -117,6 +117,12 @@ class JourneyViewModel : ViewModel() {
         state = null
     }
 
+    // Action bar ends the journey
+    override fun onCleared() {
+        endJourney()
+        super.onCleared()
+    }
+
     /** Called on the scanner's thread for every matching advertisement. */
     private fun onBroadcastFound(
         address: String,
@@ -235,10 +241,6 @@ class JourneyViewModel : ViewModel() {
             NRFBoardState.NO_SINK -> JourneyPhase.DROP_OUT
             NRFBoardState.IDLE -> currentPhase
         }
-
-    override fun onCleared() {
-        endJourney()
-    }
 
     private companion object {
         /** The board treats 0 as "stop listening". */

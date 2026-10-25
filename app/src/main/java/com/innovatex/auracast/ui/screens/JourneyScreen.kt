@@ -42,6 +42,7 @@ import com.innovatex.auracast.ui.theme.AlertRed
 @Composable
 fun JourneyRoute(
     route: TransitRoute,
+    viewModel: JourneyViewModel,
     modifier: Modifier = Modifier,
     onEndJourney: () -> Unit = {},
     onOpenAccessibility: () -> Unit = {}
