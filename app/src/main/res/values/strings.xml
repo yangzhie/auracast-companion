@@ -1,3 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">auracast</string>
+    <string name="app_name">Auracast</string>
+    <string name="setup_title">Before you start</string>
+    <string name="setup_subtitle">Two things need to be ready for announcements to reach you.</string>
+    <string name="setup_bluetooth">Bluetooth</string>
+    <string name="setup_bluetooth_on">On</string>
+    <string name="setup_bluetooth_permission">Allow this app to use Bluetooth</string>
+    <string name="setup_bluetooth_off">Bluetooth is off — turn it on to find nearby stops</string>
+    <string name="setup_location">Location</string>
+    <string name="setup_location_on">Allowed while using the app</string>
+    <string name="setup_location_why">Needed to know which stop you\'re at</string>
+    <string name="setup_why_board_title">Why a board?</string>
+    <string name="setup_why_board_body">Android doesn\'t allow an app to join an Auracast broadcast, so a small board does it for you. Your hearing aids pair with the board, not with this phone.</string>
+    <string name="setup_continue">Continue</string>
+    <string name="setup_grant">Grant permissions</string>
+    <string name="setup_turn_on_bluetooth">Turn on Bluetooth</string>
+    <string name="setup_open_settings">Open app settings</string>
+    <string name="route_title">Choose your route</string>
+    <string name="route_subtitle">Coverage is still being rolled out, so some routes are only partly fitted.</string>
+    <string name="route_note">You can still follow a route with no fitted stops — you just won\'t receive announcements on it.</string>
+    <string name="route_start">Start journey</string>
+    <string name="journey_starting">Starting journey…</string>
+    <string name="journey_stops_header">STOPS ON THIS ROUTE</string>
+    <string name="journey_end">End journey</string>
+    <string name="journey_board_missing_title">Board not connected</string>
+    <string name="journey_board_missing_detail">Switch it on and keep it with you — nothing can play without it.</string>
+    <string name="stop_waiting">Waiting</string>
+    <string name="stop_connecting">Connecting…</string>
+    <string name="stop_playing">Playing</string>
+    <string name="stop_passed">Passed</string>
+    <string name="stop_unfitted">No announcements here</string>
+    <string name="arrived_title">You\'ve arrived</string>
+    <string name="arrived_ended_title">Journey ended</string>
+    <string name="arrived_released">Your hearing device has been released and is back to normal.</string>
+    <string name="arrived_stops_heard">Stops with announcements</string>
+    <string name="arrived_stops_so_far">Stops heard so far</string>
+    <string name="arrived_stops_unfitted">Stops not yet fitted</string>
+    <string name="arrived_time">Journey time</string>
+    <string name="arrived_minutes">%1$d min</string>
+    <string name="arrived_under_minute">Under a minute</string>
+    <string name="arrived_plan_another">Plan another journey</string>
+    <string name="arrived_report">Report a problem</string>
+    <string name="a11y_title">Accessibility</string>
+    <string name="a11y_subtitle">These settings apply to this app only.</string>
+    <string name="a11y_language">Language</string>
+    <string name="a11y_language_detail">Changing this restarts the app.</string>
+    <string name="a11y_text_size">Text size</string>
+    <string name="a11y_text_size_detail">Applied on top of your phone\'s own font size.</string>
+    <string name="a11y_size_standard">Standard</string>
+    <string name="a11y_size_large">Large</string>
+    <string name="a11y_size_largest">Largest</string>
+    <string name="a11y_alerts">Alerts</string>
+    <string name="a11y_vibrate">Vibrate on connect</string>
+    <string name="a11y_vibrate_detail">Feel a pulse when a stop\'s announcements start</string>
+    <string name="a11y_flash">Flash screen on connect</string>
+    <string name="a11y_flash_detail">Brief full-screen flash</string>
+    <string name="a11y_display">Display</string>
+    <string name="a11y_keep_awake">Keep screen on</string>
+    <string name="a11y_keep_awake_detail">While a journey is running</string>
+    <string name="a11y_done">Done</string>
+
+    <!-- Endonyms: a language is always listed in its own
+         script, so a rider who cannot read the current
+         interface can still find their own. -->
+    <string-array name="language_names">
+        <item>English</item>
+        <item>中文</item>
+        <item>हिन्दी</item>
+        <item>日本語</item>
+        <item>العربية</item>
+        <item>Español</item>
+        <item>Français</item>
+    </string-array>
 </resources>

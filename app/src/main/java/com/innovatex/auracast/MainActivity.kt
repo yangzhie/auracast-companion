@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.innovatex.auracast.data.AppSettings
 import com.innovatex.auracast.ui.navigation.Navigation
 import com.innovatex.auracast.ui.theme.AuracastTheme
 import com.innovatex.auracast.ui.theme.Ink
@@ -17,6 +18,9 @@ import com.innovatex.auracast.ui.theme.Ink
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Before setContent: the theme reads the text size on first frame.
+        AppSettings.load(this)
 
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),

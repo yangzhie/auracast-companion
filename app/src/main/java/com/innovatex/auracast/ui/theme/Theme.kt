@@ -3,6 +3,10 @@ package com.innovatex.auracast.ui.theme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
+import com.innovatex.auracast.data.AppSettings
 
 private val AuracastColorScheme = darkColorScheme(
     primary = Violet,
@@ -32,9 +36,18 @@ private val AuracastColorScheme = darkColorScheme(
 fun AuracastTheme(
     content: @Composable () -> Unit
 ) {
-    MaterialTheme(
-        colorScheme = AuracastColorScheme,
-        typography = Typography,
-        content = content
+    val density = LocalDensity.current
+
+    val scaled = Density(
+        density = density.density,
+        fontScale = density.fontScale * AppSettings.textSize.scale
     )
+
+    CompositionLocalProvider(LocalDensity provides scaled) {
+        MaterialTheme(
+            colorScheme = AuracastColorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
 }

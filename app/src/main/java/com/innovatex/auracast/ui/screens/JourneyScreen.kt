@@ -25,6 +25,10 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,13 +41,17 @@ import androidx.compose.ui.unit.dp
 import com.innovatex.auracast.bluetooth.JourneyViewModel
 import com.innovatex.auracast.core.JourneyPhase
 import com.innovatex.auracast.core.JourneyState
+import com.innovatex.auracast.data.AppSettings
 import com.innovatex.auracast.data.Stop
 import com.innovatex.auracast.data.TransitRoute
 import com.innovatex.auracast.ui.components.BandTone
+import com.innovatex.auracast.ui.components.ConnectFlash
+import com.innovatex.auracast.ui.components.KeepScreenOn
 import com.innovatex.auracast.ui.components.RouteBadge
 import com.innovatex.auracast.ui.components.StatusBand
 import com.innovatex.auracast.ui.components.StopProgress
 import com.innovatex.auracast.ui.components.StopProgressState
+import com.innovatex.auracast.ui.components.vibrateOnConnect
 import com.innovatex.auracast.ui.theme.AlertRed
 import com.innovatex.auracast.ui.theme.Muted
 import com.innovatex.auracast.ui.theme.Paper
@@ -72,6 +80,24 @@ fun JourneyRoute(
 
     val state = viewModel.state
 
+    /* Counter rather than a boolean, so two stops in a row each get their
+     * own flash instead of the second being swallowed.
+     */
+    var flashTrigger by remember { mutableIntStateOf(0) }
+
+    /* Keyed on the stop as well as the phase: the rider should be told
+     * once per stop that audio has started, not again on every
+     * recomposition while it plays.
+     */
+    LaunchedEffect(state?.phase, state?.joinedStopIndex) {
+        if (state?.phase == JourneyPhase.RECEIVING) {
+            if (AppSettings.vibrateOnConnect) vibrateOnConnect(context)
+            if (AppSettings.flashOnConnect) flashTrigger++
+        }
+    }
+
+    KeepScreenOn(AppSettings.keepScreenOn)
+
     /* Running out of stops ends the journey by the same path the button
      * uses, so the summary is built once and in one place.
      */
@@ -96,15 +122,19 @@ fun JourneyRoute(
         return
     }
 
-    JourneyScreen(
-        state = state,
-        boardConnected = viewModel.boardConnected,
-        modifier = modifier,
-        onEndJourney = {
-            viewModel.endJourney()
-            onEndJourney()
-        }
-    )
+    Box(modifier = modifier.fillMaxSize()) {
+        JourneyScreen(
+            state = state,
+            boardConnected = viewModel.boardConnected,
+            onEndJourney = {
+                viewModel.endJourney()
+                onEndJourney()
+            }
+        )
+
+        // Drawn over the journey so it reads as the screen itself flashing.
+        ConnectFlash(trigger = flashTrigger)
+    }
 }
 
 /**
