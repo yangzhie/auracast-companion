@@ -55,12 +55,19 @@ class JourneyViewModel : ViewModel() {
 
         val now = System.currentTimeMillis()
 
+        val firstStop = route.stops.firstOrNull()
         state = JourneyState(
             route = route,
             currentStopIndex = 0,
-            phase = JourneyPhase.SEARCHING,
+            phase = if (firstStop?.broadcast == null) JourneyPhase.AT_UNCOVERED else JourneyPhase.SEARCHING,
             phaseStartedAt = now
         )
+
+        /* Nothing on this route can be heard, so there's no board to drive. */
+        if (route.stops.none { it.broadcast != null }) {
+            Log.i(tag, "Route ${route.id} has no fitted stops, skipping board and scanner")
+            return
+        }
 
         val link = NRFBoardLink(
             context = context.applicationContext,

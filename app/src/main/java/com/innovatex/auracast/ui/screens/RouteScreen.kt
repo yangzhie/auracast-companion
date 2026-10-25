@@ -103,7 +103,7 @@ fun RouteScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp, vertical = 16.dp)
         ) {
-            Text("Choose stops")
+            Text("Start journey")
         }
     }
 }

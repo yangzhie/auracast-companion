@@ -17,10 +17,17 @@ object SampleData {
         Stop("r2s2", "Stop 2 (R2)", "Stop 2 (R2)", BroadcastIdentity(2, 2))
     )
 
+    // Route 3 (no fitted stops)
+    private val route3 = listOf(
+        Stop("r3s1", "Stop 1 (R3)", "Stop 1 (R3)", null),
+        Stop("r3s2", "Stop 2 (R3)", "Stop 2 (R3)", null),
+        Stop("r3s3", "Stop 3 (R3)", "Stop 3 (R3)", null)
+    )
+
     val routes = listOf(
         TransitRoute("1", "1", "via Route 1", route1),
         TransitRoute("2", "2", "via Route 2", route2),
-        TransitRoute("3", "3", "To Unfitted", emptyList())
+        TransitRoute("3", "3", "To Unfitted", route3)
     )
 
     fun routeById(id: String): TransitRoute =
