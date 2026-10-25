@@ -1,23 +1,29 @@
 package com.innovatex.auracast.ui.theme
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 
-private val AuracastColorScheme = lightColorScheme(
-    primary = Ink,
-    onPrimary = Color.White,
-    secondary = Ink2,
-    onSecondary = Color.White,
-    background = Paper,
-    onBackground = Ink,
-    surface = CardWhite,
-    onSurface = Ink,
-    surfaceVariant = Paper,
+private val AuracastColorScheme = darkColorScheme(
+    primary = Violet,
+    onPrimary = OnViolet,
+    primaryContainer = VioletDim,
+    onPrimaryContainer = Paper,
+
+    secondary = Muted,
+    onSecondary = OnViolet,
+
+    background = Ink,
+    onBackground = Paper,
+
+    surface = Surface,
+    onSurface = Paper,
+    surfaceVariant = SurfaceHigh,
     onSurfaceVariant = Muted,
+
     error = AlertRed,
-    onError = Color.White,
+    onError = OnViolet,
+
     outline = RouteLine,
     outlineVariant = RouteLine
 )

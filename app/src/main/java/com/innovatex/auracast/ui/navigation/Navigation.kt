@@ -95,6 +95,7 @@ fun Navigation(
 
             composable<Arrived> {
                 ArrivedScreen(
+                    summary = journeyViewModel.lastSummary,
                     onPlanAnother = {
                         navController.navigate(SetupCheck) {
                             popUpTo<SetupCheck> { inclusive = true }

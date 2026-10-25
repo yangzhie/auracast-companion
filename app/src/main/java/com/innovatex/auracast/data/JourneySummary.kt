@@ -5,8 +5,9 @@ data class JourneySummary(
     val coveredStopsConnected: Int,
     val coveredStopsTotal: Int,
     val uncoveredStopsPassed: Int,
-    val journeyMinutes: Int
+    val journeyMinutes: Int,
+    val completed: Boolean
 ) {
     val allCoveredStopsConnected: Boolean
-        get() = coveredStopsConnected == coveredStopsTotal
+        get() = coveredStopsTotal > 0 && coveredStopsConnected == coveredStopsTotal
 }

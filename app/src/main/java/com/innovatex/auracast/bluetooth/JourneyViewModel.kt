@@ -11,6 +11,7 @@ import com.innovatex.auracast.core.JourneyState
 import com.innovatex.auracast.core.MatchDecision
 import com.innovatex.auracast.core.MatchingEngine
 import com.innovatex.auracast.data.TransitRoute
+import com.innovatex.auracast.data.JourneySummary
 
 /**
  * Drives a journey. The phone scans for transmitters and decides which
@@ -18,7 +19,6 @@ import com.innovatex.auracast.data.TransitRoute
  * back only so the UI can show whether audio is actually flowing.
  */
 class JourneyViewModel : ViewModel() {
-
     // Null until a journey is started
     var state by mutableStateOf<JourneyState?>(null)
         private set
@@ -40,6 +40,13 @@ class JourneyViewModel : ViewModel() {
 
     private val tag = "JourneyViewModel"
 
+    private var journeyStartedAt = 0L
+    private val stopsHeard = mutableSetOf<Int>()
+
+    // Survives journey tear down, for arrived screen
+    var lastSummary by mutableStateOf<JourneySummary?>(null)
+        private set
+
     fun startJourney(context: Context, route: TransitRoute) {
         if (activeRouteId == route.id) {
             Log.w(tag, "startJourney called again for ${route.id}, ignoring")
@@ -52,6 +59,10 @@ class JourneyViewModel : ViewModel() {
         }
 
         activeRouteId = route.id
+
+        journeyStartedAt = System.currentTimeMillis()
+        stopsHeard.clear()
+        lastSummary = null
 
         val now = System.currentTimeMillis()
 
@@ -114,6 +125,7 @@ class JourneyViewModel : ViewModel() {
 
         boardConnected = false
         discovered = emptyMap()
+        state?.let { lastSummary = summaryFor(it) }
         state = null
     }
 
@@ -159,6 +171,11 @@ class JourneyViewModel : ViewModel() {
         val current = state ?: return
         val phase = phaseFor(boardState, current.phase)
         val now = System.currentTimeMillis()
+
+        // A stop counts as heard once audio actually flowed from it
+        if (phase == JourneyPhase.RECEIVING) {
+            current.joinedStopIndex?.let { stopsHeard.add(it) }
+        }
 
         state = current.copy(
             phase = phase,
@@ -248,5 +265,31 @@ class JourneyViewModel : ViewModel() {
 
         /** How long a transmitter can go unheard before it counts as gone. */
         const val STALE_AFTER_MILLIS = 15_000L
+    }
+
+    private fun summaryFor(current: JourneyState): JourneySummary {
+        val completed = current.isJourneyOver
+
+        /* Measure against stops the rider actually reached. On an early
+         * end, "2 of 4" scores them against stops they chose not to
+         * travel to, which reads as a failure that didn't happen.
+         */
+        val reachedIndex =
+            if (completed) current.route.stops.lastIndex else current.currentStopIndex
+        val passed = current.route.stops.take(reachedIndex + 1)
+
+        val minutes =
+            if (journeyStartedAt == 0L) 0
+            else ((System.currentTimeMillis() - journeyStartedAt) / 60_000L).toInt()
+
+        return JourneySummary(
+            destinationName = current.route.stops.getOrNull(reachedIndex)?.name
+                ?: current.route.destination,
+            coveredStopsConnected = stopsHeard.size,
+            coveredStopsTotal = passed.count { it.hasAuracast },
+            uncoveredStopsPassed = passed.count { !it.hasAuracast },
+            journeyMinutes = minutes,
+            completed = completed
+        )
     }
 }
