@@ -35,6 +35,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
+import android.bluetooth.BluetoothAdapter
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
+import androidx.activity.compose.LocalActivity
 
 import com.innovatex.auracast.components.SetupCheckViewModel
 import com.innovatex.auracast.ui.theme.Muted
@@ -54,9 +59,30 @@ fun SetupCheckScreen(
 
     // OS shows the permissions prompt
     // ActivityResult is general mechanism for any interaction with another screen
+    val activity = LocalActivity.current
     val permLauncher = rememberLauncherForActivityResult(
-        // Defines what goes in and out
         contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { results ->
+        viewModel.refresh(context)
+
+        // Denied and no rationale means Android won't prompt again
+        val permanentlyDenied = results.any { (permission, granted) ->
+            !granted && activity?.shouldShowRequestPermissionRationale(permission) == false
+        }
+
+        if (permanentlyDenied) {
+            context.startActivity(
+                Intent(
+                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    Uri.fromParts("package", context.packageName, null)
+                )
+            )
+        }
+    }
+
+    // System dialog asking the user to switch Bluetooth on
+    val enableBluetoothLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
     ) {
         viewModel.refresh(context)
     }
@@ -81,7 +107,7 @@ fun SetupCheckScreen(
         )
         Spacer(Modifier.height(8.dp))
         Text(
-            text = "Three things need to be on for announcements to reach your hearing device.",
+            text = "Four things need to be on for announcements to reach your hearing device.",
             style = MaterialTheme.typography.bodyLarge,
             color = Muted
         )
@@ -91,10 +117,10 @@ fun SetupCheckScreen(
         SetupCheckRow(
             isSet = status.bluetoothReady,
             title = "Bluetooth",
-            detail = if (status.bluetoothReady) {
-                "On"
-            } else {
-                "Turn Bluetooth on and allow this app to use it"
+            detail = when {
+                !status.bluetoothGranted -> "Allow this app to use Bluetooth"
+                !status.bluetoothOn -> "Turn Bluetooth on"
+                else -> "On"
             }
         )
         HorizontalDivider()
@@ -105,17 +131,6 @@ fun SetupCheckScreen(
                 "Allowed while using the app"
             } else {
                 "Needed to know which stop you're at"
-            }
-        )
-        HorizontalDivider()
-        SetupCheckRow(
-            isSet = status.hearingDeviceConnected,
-            title = "Hearing device",
-            detail = if (status.hearingDeviceConnected) {
-                "Connected and ready"
-            } else {
-                "Connect LE Audio hearing aids or earbuds — your phone passes " +
-                        "announcements to them, and can't play them through its own speaker."
             }
         )
 
@@ -129,13 +144,13 @@ fun SetupCheckScreen(
                 .padding(16.dp)
         ) {
             Text(
-                text = "Why a hearing device?",
+                text = "Important note",
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = "Auracast sends audio straight to your hearing aids. The phone's job is to pick the right channel, not to play the sound.",
+                text = "Make sure to turn on your nRF52840 board and keep your hearing device on.",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
@@ -144,21 +159,32 @@ fun SetupCheckScreen(
 
         Button(
             onClick = {
-                if (status.allReady) {
-                    onContinue()
-                } else {
-                    permLauncher.launch(
+                when {
+                    !status.permissionsGranted -> permLauncher.launch(
                         arrayOf(
                             Manifest.permission.BLUETOOTH_CONNECT,
                             Manifest.permission.BLUETOOTH_SCAN,
                             Manifest.permission.ACCESS_FINE_LOCATION
                         )
                     )
+
+                    // Needs BLUETOOTH_CONNECT on Android 12+, hence after permissions
+                    !status.bluetoothOn -> enableBluetoothLauncher.launch(
+                        Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                    )
+
+                    else -> onContinue()
                 }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(if (status.allReady) "Continue" else "Grant permissions")
+            Text(
+                when {
+                    !status.permissionsGranted -> "Grant permissions"
+                    !status.bluetoothOn -> "Turn on Bluetooth"
+                    else -> "Continue"
+                }
+            )
         }
     }
 }

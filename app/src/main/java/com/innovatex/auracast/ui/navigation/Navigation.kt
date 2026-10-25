@@ -34,7 +34,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = RouteSelect,
+        startDestination = SetupCheck,
         modifier = modifier
     ) {
         composable<SetupCheck> {
