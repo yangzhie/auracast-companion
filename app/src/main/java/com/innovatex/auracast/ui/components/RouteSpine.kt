@@ -31,6 +31,8 @@ import com.innovatex.auracast.ui.theme.Muted
 import com.innovatex.auracast.ui.theme.ReceivingGreen
 import com.innovatex.auracast.ui.theme.RouteLine
 import com.innovatex.auracast.ui.theme.SignalAmber
+import com.innovatex.auracast.ui.theme.OnViolet
+import com.innovatex.auracast.ui.theme.Violet
 
 enum class StopState {
     PASSED,
@@ -236,19 +238,26 @@ fun RouteBadgeRow(
     }
 }
 
+/**
+ * The route number as a filled pill.
+ *
+ * Violet on dark rather than the old dark-on-white: filled with Ink it
+ * was the same colour as the background it sat on, so the badge read as
+ * a floating number with no shape at all.
+ */
 @Composable
 fun RouteBadge(routeNumber: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(5.dp))
-            .background(Ink)
-            .padding(horizontal = 10.dp, vertical = 4.dp)
+            .clip(RoundedCornerShape(6.dp))
+            .background(Violet)
+            .padding(horizontal = 11.dp, vertical = 5.dp)
     ) {
         Text(
             text = routeNumber,
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.ExtraBold,
-            color = Color.White
+            color = OnViolet
         )
     }
 }
