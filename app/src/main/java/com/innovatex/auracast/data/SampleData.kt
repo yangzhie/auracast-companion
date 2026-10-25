@@ -1,24 +1,26 @@
 package com.innovatex.auracast.data
 
+// Demo routes for the proof of concept.
 object SampleData {
 
-    /*
-     * Demo route: four fitted stops, modelled with nothing between them.
-     * The real 86 has unfitted stops in between, but the app can only
-     * observe the rider where a transmitter is present.
-     */
-    private val route86Outbound = listOf(
-        Stop("s8", "Parliament", "Stop 8 · Spring St", BroadcastIdentity(86, 1)),
-        Stop("s12", "Gertrude Street", "Stop 12 · Smith St", BroadcastIdentity(86, 2)),
-        Stop("s15", "Johnston Street", "Stop 15 · Smith St", BroadcastIdentity(86, 3)),
-        Stop("s20", "Westgarth Street", "Stop 20 · High St", BroadcastIdentity(86, 4))
+    // Route 1
+    private val route1 = listOf(
+        Stop("r1s1", "Stop 1 (R1)", "Stop 1 (R1)", BroadcastIdentity(1, 1)),
+        Stop("r1s2", "Stop 2 (R1)", "Stop 2 (R1)", BroadcastIdentity(1, 2)),
+        Stop("r1s3", "Stop 3 (R1)", "Stop 3 (R1)", BroadcastIdentity(1, 3)),
+        Stop("r1s4", "Stop 4 (R1)", "Stop 4 (R1)", BroadcastIdentity(1, 4))
+    )
+
+    // Route 2 (for route filtering) 
+    private val route2 = listOf(
+        Stop("r2s1", "Stop 1 (R2)", "Stop 1 (R2)", BroadcastIdentity(2, 1)),
+        Stop("r2s2", "Stop 2 (R2)", "Stop 2 (R2)", BroadcastIdentity(2, 2))
     )
 
     val routes = listOf(
-        TransitRoute("86-out", "86", "To Bundoora RMIT", route86Outbound),
-
-        // Kept so the route screen can show the "no stops fitted yet" case.
-        TransitRoute("96-out", "96", "To Brunswick East", emptyList())
+        TransitRoute("1", "1", "via Route 1", route1),
+        TransitRoute("2", "2", "via Route 2", route2),
+        TransitRoute("3", "3", "To Unfitted", emptyList())
     )
 
     fun routeById(id: String): TransitRoute = routes.first { it.id == id }
