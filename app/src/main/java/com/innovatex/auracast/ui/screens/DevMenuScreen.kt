@@ -62,15 +62,16 @@ fun DevMenuScreen(
         "01 · Home" to Home,
         "02 · Setup check" to SetupCheck,
         "03 · Route select" to RouteSelect,
-        "04 · Confirm journey" to RouteConfirm("86-out"),
-        "05 · Journey — searching" to JourneyPreview("86-out", 2, "SEARCHING"),
-        "06 · Journey — receiving" to JourneyPreview("86-out", 2, "RECEIVING"),
-        "06b · Journey — no coverage" to JourneyPreview("86-out", 3, "AT_UNCOVERED"),
-        "07 · Journey — travelling" to JourneyPreview("86-out", 2, "TRAVELLING"),
+        "04 · Confirm journey" to RouteConfirm("1"),
+        "05 · Journey — searching" to JourneyPreview("1", 2, "SEARCHING"),
+        "06 · Journey — receiving" to JourneyPreview("1", 2, "RECEIVING"),
+        "06b · Journey — no coverage" to JourneyPreview("1", 3, "AT_UNCOVERED"),
+        "07 · Journey — travelling" to JourneyPreview("1", 2, "TRAVELLING"),
         "08 · Arrived" to Arrived,
         "10 · Accessibility" to Accessibility,
         "Scan debug" to ScanDebug,
-        "LIVE journey — scanner on" to Journey("86-out"),
+        "LIVE journey — route 1" to Journey("1"),
+        "LIVE journey — route 2" to Journey("2"),
     )
 
     Column(

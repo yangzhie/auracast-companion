@@ -11,7 +11,7 @@ object SampleData {
         Stop("r1s4", "Stop 4 (R1)", "Stop 4 (R1)", BroadcastIdentity(1, 4))
     )
 
-    // Route 2 (for route filtering) 
+    // Route 2 (for route filtering)
     private val route2 = listOf(
         Stop("r2s1", "Stop 1 (R2)", "Stop 1 (R2)", BroadcastIdentity(2, 1)),
         Stop("r2s2", "Stop 2 (R2)", "Stop 2 (R2)", BroadcastIdentity(2, 2))
@@ -23,5 +23,7 @@ object SampleData {
         TransitRoute("3", "3", "To Unfitted", emptyList())
     )
 
-    fun routeById(id: String): TransitRoute = routes.first { it.id == id }
+    fun routeById(id: String): TransitRoute =
+        routes.firstOrNull { it.id == id }
+            ?: error("No route with id '$id'. Known ids: ${routes.joinToString { it.id }}")
 }

@@ -30,7 +30,8 @@ class JourneyViewModel : ViewModel() {
     private var boardLink: NRFBoardLink? = null
     private var scanner: BroadcastScanner? = null
 
-    private var started = false
+    // Current route ID
+    private var activeRouteId: String? = null
 
     /* Transmitters currently audible, keyed by address. Entries age out,
      * which is how the phone notices the rider has left a stop.
@@ -40,11 +41,17 @@ class JourneyViewModel : ViewModel() {
     private val tag = "JourneyViewModel"
 
     fun startJourney(context: Context, route: TransitRoute) {
-        if (started) {
-            Log.w(tag, "startJourney called again, ignoring")
+        if (activeRouteId == route.id) {
+            Log.w(tag, "startJourney called again for ${route.id}, ignoring")
             return
         }
-        started = true
+
+        if (activeRouteId != null) {
+            Log.i(tag, "Switching from route $activeRouteId to ${route.id}")
+            endJourney()
+        }
+
+        activeRouteId = route.id
 
         val now = System.currentTimeMillis()
 
@@ -89,7 +96,7 @@ class JourneyViewModel : ViewModel() {
     }
 
     fun endJourney() {
-        started = false
+        activeRouteId = null
 
         scanner?.stop()
         scanner = null
