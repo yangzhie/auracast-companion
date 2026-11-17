@@ -1,5 +1,7 @@
 package com.innovatex.auracast.ui.screens
 
+import com.innovatex.auracast.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -77,7 +79,7 @@ fun RouteScreen(
             Spacer(Modifier.height(24.dp))
 
             Text(
-                text = "Choose your route",
+                text = stringResource(R.string.route_title),
                 style = MaterialTheme.typography.headlineLarge,
                 color = Paper
             )
@@ -112,7 +114,7 @@ fun RouteScreen(
                 contentColor = OnViolet
             )
         ) {
-            Text("Start journey")
+            Text(stringResource(R.string.route_start))
         }
     }
 }
@@ -125,6 +127,8 @@ private fun RouteCard(
     modifier: Modifier = Modifier
 ) {
     val fitted = route.coveredStopCount > 0
+    // Resolved here: the semantics block below is not composable
+    val description = stringResource(R.string.route_a11y_label, route.routeNumber, route.destination)
 
     Row(
         modifier = modifier
@@ -148,8 +152,7 @@ private fun RouteCard(
             .padding(18.dp)
             // One announcement; the tick is already implied by the role.
             .semantics(mergeDescendants = true) {
-                contentDescription =
-                    "Route ${route.routeNumber}, ${route.destination}."
+                contentDescription = description
             },
         verticalAlignment = Alignment.CenterVertically
     ) {

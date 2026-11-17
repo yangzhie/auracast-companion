@@ -1,5 +1,8 @@
 package com.innovatex.auracast.ui.components
 
+import androidx.annotation.StringRes
+import com.innovatex.auracast.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -63,25 +66,25 @@ private data class StopLook(
     val node: Color,
     val filled: Boolean,
     val label: Color,
-    val status: String,
+    @StringRes val status: Int,
     val pulses: Boolean = false
 )
 
 private fun lookFor(state: StopProgressState) = when (state) {
     StopProgressState.IDLE ->
-        StopLook(IdleGrey, filled = false, label = Muted, status = "Waiting")
+        StopLook(IdleGrey, filled = false, label = Muted, status = R.string.stop_waiting)
 
     StopProgressState.CONNECTING ->
-        StopLook(SignalAmber, filled = true, label = Paper, status = "Connecting…", pulses = true)
+        StopLook(SignalAmber, filled = true, label = Paper, status = R.string.stop_connecting, pulses = true)
 
     StopProgressState.CONNECTED ->
-        StopLook(ReceivingGreen, filled = true, label = Paper, status = "Playing")
+        StopLook(ReceivingGreen, filled = true, label = Paper, status = R.string.stop_playing)
 
     StopProgressState.PASSED ->
-        StopLook(VioletDim, filled = true, label = Muted, status = "Passed")
+        StopLook(VioletDim, filled = true, label = Muted, status = R.string.stop_passed)
 
     StopProgressState.UNFITTED ->
-        StopLook(IdleGrey, filled = false, label = Muted, status = "No announcements here")
+        StopLook(IdleGrey, filled = false, label = Muted, status = R.string.stop_unfitted)
 }
 
 @Composable
@@ -111,6 +114,7 @@ private fun StopRow(
     railDone: Boolean
 ) {
     val look = lookFor(state)
+    val status = stringResource(look.status)
     val isActive = state == StopProgressState.CONNECTING ||
             state == StopProgressState.CONNECTED
 
@@ -121,7 +125,7 @@ private fun StopRow(
              * reads the node, the name and the status as three items.
              */
             .clearAndSetSemantics {
-                contentDescription = "${stop.name}. ${look.status}"
+                contentDescription = "${stop.name}. $status"
             }
     ) {
         Column(
@@ -153,7 +157,7 @@ private fun StopRow(
             )
             Spacer(Modifier.height(2.dp))
             Text(
-                text = look.status.uppercase(),
+                text = status.uppercase(),
                 style = MaterialTheme.typography.labelSmall,
                 letterSpacing = 1.2.sp,
                 color = if (isActive) look.node else Muted

@@ -59,6 +59,30 @@
     <string name="a11y_keep_awake">Keep screen on</string>
     <string name="a11y_keep_awake_detail">While a journey is running</string>
     <string name="a11y_done">Done</string>
+    <string name="a11y_try">Try it</string>
+
+    <string name="route_a11y_label">Route %1$s, %2$s.</string>
+    <string name="band_complete_kicker">Journey complete</string>
+    <string name="band_complete_detail">There are no more stops on this route.</string>
+    <string name="band_searching_kicker">Searching</string>
+    <string name="band_searching_headline">Approaching %1$s</string>
+    <string name="band_searching_detail">Looking for this stop\'s announcements.</string>
+    <string name="band_connecting_kicker">Connecting</string>
+    <string name="band_connecting_detail">Joining this stop\'s announcements.</string>
+    <string name="band_playing_detail">Audio is going to your hearing device.</string>
+    <string name="band_travelling_kicker">Between stops</string>
+    <string name="band_travelling_headline">On the way to %1$s</string>
+    <string name="band_travelling_destination">your destination</string>
+    <string name="band_travelling_detail">You\'ll connect automatically when you arrive.</string>
+    <string name="band_uncovered_kicker">No announcements</string>
+    <string name="band_uncovered_detail_next">This stop isn\'t fitted yet. Nothing is wrong — you\'ll reconnect at %1$s.</string>
+    <string name="band_uncovered_detail">This stop isn\'t fitted yet. Nothing is wrong.</string>
+    <string name="band_dropout_kicker">Not receiving</string>
+    <string name="band_dropout_headline">Connection dropped</string>
+    <string name="band_dropout_detail">Trying to reconnect to %1$s.</string>
+    <string name="arrived_stops_value">%1$d of %2$d</string>
+    <string name="action_routes">Choose a route</string>
+    <string name="action_accessibility">Accessibility settings</string>
 
     <!-- Endonyms: a language is always listed in its own
          script, so a rider who cannot read the current

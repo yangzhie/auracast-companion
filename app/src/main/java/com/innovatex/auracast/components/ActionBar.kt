@@ -1,5 +1,7 @@
 package com.innovatex.auracast.ui.components
 
+import com.innovatex.auracast.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,8 +39,8 @@ fun ActionBar(
         horizontalArrangement = Arrangement.End,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        BarButton(Icons.Default.Place, "Choose a route", onRoutes)
-        BarButton(Icons.Default.Settings, "Accessibility settings", onAccessibility)
+        BarButton(Icons.Default.Place, stringResource(R.string.action_routes), onRoutes)
+        BarButton(Icons.Default.Settings, stringResource(R.string.action_accessibility), onAccessibility)
     }
 }
 

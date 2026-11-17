@@ -59,4 +59,28 @@
     <string name="a11y_keep_awake">स्क्रीन चालू रखें</string>
     <string name="a11y_keep_awake_detail">जब यात्रा चल रही हो</string>
     <string name="a11y_done">हो गया</string>
+    <string name="a11y_try">आज़माएँ</string>
+
+    <string name="route_a11y_label">रूट %1$s, %2$s।</string>
+    <string name="band_complete_kicker">यात्रा पूरी हुई</string>
+    <string name="band_complete_detail">इस रूट पर और कोई स्टॉप नहीं है।</string>
+    <string name="band_searching_kicker">खोज रहा है</string>
+    <string name="band_searching_headline">%1$s के पास पहुँच रहे हैं</string>
+    <string name="band_searching_detail">इस स्टॉप की घोषणाएँ खोजी जा रही हैं।</string>
+    <string name="band_connecting_kicker">कनेक्ट हो रहा है</string>
+    <string name="band_connecting_detail">इस स्टॉप की घोषणाओं से जुड़ रहे हैं।</string>
+    <string name="band_playing_detail">ऑडियो आपके श्रवण उपकरण पर जा रहा है।</string>
+    <string name="band_travelling_kicker">स्टॉप के बीच</string>
+    <string name="band_travelling_headline">%1$s की ओर जा रहे हैं</string>
+    <string name="band_travelling_destination">आपकी मंज़िल</string>
+    <string name="band_travelling_detail">पहुँचने पर आप अपने-आप कनेक्ट हो जाएँगे।</string>
+    <string name="band_uncovered_kicker">कोई घोषणा नहीं</string>
+    <string name="band_uncovered_detail_next">इस स्टॉप पर अभी उपकरण नहीं लगा है। कुछ भी गलत नहीं है — आप %1$s पर फिर से कनेक्ट होंगे।</string>
+    <string name="band_uncovered_detail">इस स्टॉप पर अभी उपकरण नहीं लगा है। कुछ भी गलत नहीं है।</string>
+    <string name="band_dropout_kicker">प्राप्त नहीं हो रहा</string>
+    <string name="band_dropout_headline">कनेक्शन टूट गया</string>
+    <string name="band_dropout_detail">%1$s से फिर से कनेक्ट करने की कोशिश हो रही है।</string>
+    <string name="arrived_stops_value">%2$d में से %1$d</string>
+    <string name="action_routes">रूट चुनें</string>
+    <string name="action_accessibility">सुलभता सेटिंग्स</string>
 </resources>

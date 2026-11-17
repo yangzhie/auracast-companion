@@ -1,5 +1,7 @@
 package com.innovatex.auracast.ui.screens
 
+import com.innovatex.auracast.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -114,7 +116,7 @@ fun JourneyRoute(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Starting journey…",
+                text = stringResource(R.string.journey_starting),
                 style = MaterialTheme.typography.bodyLarge,
                 color = Muted
             )
@@ -184,7 +186,7 @@ fun JourneyScreen(
             Spacer(Modifier.height(30.dp))
 
             Text(
-                text = "STOPS ON THIS ROUTE",
+                text = stringResource(R.string.journey_stops_header),
                 style = MaterialTheme.typography.labelMedium,
                 color = Muted
             )
@@ -212,7 +214,7 @@ fun JourneyScreen(
             shape = RoundedCornerShape(14.dp),
             colors = ButtonDefaults.outlinedButtonColors(contentColor = AlertRed)
         ) {
-            Text("End journey")
+            Text(stringResource(R.string.journey_end))
         }
     }
 }
@@ -225,9 +227,9 @@ private fun LinkBand(state: JourneyState) {
 
     if (currentStop == null) {
         StatusBand(
-            kicker = "Journey complete",
-            headline = "You've arrived",
-            detail = "There are no more stops on this route.",
+            kicker = stringResource(R.string.band_complete_kicker),
+            headline = stringResource(R.string.arrived_title),
+            detail = stringResource(R.string.band_complete_detail),
             tone = BandTone.TRAVELLING
         )
         return
@@ -235,46 +237,51 @@ private fun LinkBand(state: JourneyState) {
 
     when (state.phase) {
         JourneyPhase.SEARCHING -> StatusBand(
-            kicker = "Searching",
-            headline = "Approaching ${currentStop.name}",
-            detail = "Looking for this stop's announcements.",
+            kicker = stringResource(R.string.band_searching_kicker),
+            headline = stringResource(R.string.band_searching_headline, currentStop.name),
+            detail = stringResource(R.string.band_searching_detail),
             tone = BandTone.SEARCHING
         )
 
         JourneyPhase.CONNECTING -> StatusBand(
-            kicker = "Connecting",
+            kicker = stringResource(R.string.band_connecting_kicker),
             headline = currentStop.name,
-            detail = "Joining this stop's announcements.",
+            detail = stringResource(R.string.band_connecting_detail),
             tone = BandTone.CONNECTING
         )
 
         JourneyPhase.RECEIVING -> StatusBand(
-            kicker = "Playing",
+            kicker = stringResource(R.string.stop_playing),
             headline = currentStop.name,
-            detail = "Audio is going to your hearing device.",
+            detail = stringResource(R.string.band_playing_detail),
             tone = BandTone.RECEIVING
         )
 
         JourneyPhase.TRAVELLING -> StatusBand(
-            kicker = "Between stops",
-            headline = "On the way to ${nextCovered?.name ?: "your destination"}",
-            detail = "You'll connect automatically when you arrive.",
+            kicker = stringResource(R.string.band_travelling_kicker),
+            headline = stringResource(
+                R.string.band_travelling_headline,
+                nextCovered?.name ?: stringResource(R.string.band_travelling_destination)
+            ),
+            detail = stringResource(R.string.band_travelling_detail),
             tone = BandTone.TRAVELLING
         )
 
         JourneyPhase.AT_UNCOVERED -> StatusBand(
-            kicker = "No announcements",
+            kicker = stringResource(R.string.band_uncovered_kicker),
             headline = currentStop.name,
-            detail = nextCovered?.let {
-                "This stop isn't fitted yet. Nothing is wrong — you'll reconnect at ${it.name}."
-            } ?: "This stop isn't fitted yet. Nothing is wrong.",
+            detail = if (nextCovered != null) {
+                stringResource(R.string.band_uncovered_detail_next, nextCovered.name)
+            } else {
+                stringResource(R.string.band_uncovered_detail)
+            },
             tone = BandTone.NO_COVERAGE
         )
 
         JourneyPhase.DROP_OUT -> StatusBand(
-            kicker = "Not receiving",
-            headline = "Connection dropped",
-            detail = "Trying to reconnect to ${currentStop.name}.",
+            kicker = stringResource(R.string.band_dropout_kicker),
+            headline = stringResource(R.string.band_dropout_headline),
+            detail = stringResource(R.string.band_dropout_detail, currentStop.name),
             tone = BandTone.FAULT
         )
     }

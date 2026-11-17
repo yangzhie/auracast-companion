@@ -59,4 +59,28 @@
     <string name="a11y_keep_awake">保持屏幕常亮</string>
     <string name="a11y_keep_awake_detail">行程进行期间</string>
     <string name="a11y_done">完成</string>
+    <string name="a11y_try">试一试</string>
+
+    <string name="route_a11y_label">%1$s 号线路，%2$s。</string>
+    <string name="band_complete_kicker">行程完成</string>
+    <string name="band_complete_detail">本线路已没有更多站点。</string>
+    <string name="band_searching_kicker">搜索中</string>
+    <string name="band_searching_headline">即将到达 %1$s</string>
+    <string name="band_searching_detail">正在查找此站的播报。</string>
+    <string name="band_connecting_kicker">连接中</string>
+    <string name="band_connecting_detail">正在接入此站的播报。</string>
+    <string name="band_playing_detail">音频正在传送到您的听力设备。</string>
+    <string name="band_travelling_kicker">站点之间</string>
+    <string name="band_travelling_headline">前往 %1$s</string>
+    <string name="band_travelling_destination">您的目的地</string>
+    <string name="band_travelling_detail">到站后将自动连接。</string>
+    <string name="band_uncovered_kicker">无播报</string>
+    <string name="band_uncovered_detail_next">此站尚未安装设备。一切正常——您将在 %1$s 重新连接。</string>
+    <string name="band_uncovered_detail">此站尚未安装设备。一切正常。</string>
+    <string name="band_dropout_kicker">未接收</string>
+    <string name="band_dropout_headline">连接已断开</string>
+    <string name="band_dropout_detail">正在尝试重新连接 %1$s。</string>
+    <string name="arrived_stops_value">%1$d / %2$d</string>
+    <string name="action_routes">选择线路</string>
+    <string name="action_accessibility">无障碍设置</string>
 </resources>

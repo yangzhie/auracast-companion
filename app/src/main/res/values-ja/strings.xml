@@ -59,4 +59,28 @@
     <string name="a11y_keep_awake">画面を点灯したままにする</string>
     <string name="a11y_keep_awake_detail">移動中のあいだ</string>
     <string name="a11y_done">完了</string>
+    <string name="a11y_try">試す</string>
+
+    <string name="route_a11y_label">ルート%1$s、%2$s。</string>
+    <string name="band_complete_kicker">移動完了</string>
+    <string name="band_complete_detail">このルートにはこれ以上停留所がありません。</string>
+    <string name="band_searching_kicker">検索中</string>
+    <string name="band_searching_headline">まもなく %1$s</string>
+    <string name="band_searching_detail">この停留所のアナウンスを探しています。</string>
+    <string name="band_connecting_kicker">接続中</string>
+    <string name="band_connecting_detail">この停留所のアナウンスに接続しています。</string>
+    <string name="band_playing_detail">音声が補聴機器に届いています。</string>
+    <string name="band_travelling_kicker">停留所間を移動中</string>
+    <string name="band_travelling_headline">%1$s へ移動中</string>
+    <string name="band_travelling_destination">目的地</string>
+    <string name="band_travelling_detail">到着すると自動的に接続されます。</string>
+    <string name="band_uncovered_kicker">アナウンスなし</string>
+    <string name="band_uncovered_detail_next">この停留所はまだ未対応です。問題はありません — %1$s で再接続します。</string>
+    <string name="band_uncovered_detail">この停留所はまだ未対応です。問題はありません。</string>
+    <string name="band_dropout_kicker">受信していません</string>
+    <string name="band_dropout_headline">接続が切れました</string>
+    <string name="band_dropout_detail">%1$s に再接続しています。</string>
+    <string name="arrived_stops_value">%2$d 中 %1$d</string>
+    <string name="action_routes">ルートを選ぶ</string>
+    <string name="action_accessibility">アクセシビリティ設定</string>
 </resources>

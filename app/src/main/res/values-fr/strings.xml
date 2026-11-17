@@ -59,4 +59,28 @@
     <string name="a11y_keep_awake">Garder l\'écran allumé</string>
     <string name="a11y_keep_awake_detail">Pendant un trajet en cours</string>
     <string name="a11y_done">Terminé</string>
+    <string name="a11y_try">Essayer</string>
+
+    <string name="route_a11y_label">Ligne %1$s, %2$s.</string>
+    <string name="band_complete_kicker">Trajet terminé</string>
+    <string name="band_complete_detail">Il n\'y a plus d\'arrêts sur cette ligne.</string>
+    <string name="band_searching_kicker">Recherche</string>
+    <string name="band_searching_headline">Approche de %1$s</string>
+    <string name="band_searching_detail">Recherche des annonces de cet arrêt.</string>
+    <string name="band_connecting_kicker">Connexion</string>
+    <string name="band_connecting_detail">Connexion aux annonces de cet arrêt.</string>
+    <string name="band_playing_detail">Le son est envoyé à votre appareil auditif.</string>
+    <string name="band_travelling_kicker">Entre deux arrêts</string>
+    <string name="band_travelling_headline">En route vers %1$s</string>
+    <string name="band_travelling_destination">votre destination</string>
+    <string name="band_travelling_detail">Vous serez connecté automatiquement à votre arrivée.</string>
+    <string name="band_uncovered_kicker">Pas d\'annonces</string>
+    <string name="band_uncovered_detail_next">Cet arrêt n\'est pas encore équipé. Tout va bien — vous serez reconnecté à %1$s.</string>
+    <string name="band_uncovered_detail">Cet arrêt n\'est pas encore équipé. Tout va bien.</string>
+    <string name="band_dropout_kicker">Aucune réception</string>
+    <string name="band_dropout_headline">Connexion perdue</string>
+    <string name="band_dropout_detail">Tentative de reconnexion à %1$s.</string>
+    <string name="arrived_stops_value">%1$d sur %2$d</string>
+    <string name="action_routes">Choisir une ligne</string>
+    <string name="action_accessibility">Paramètres d\'accessibilité</string>
 </resources>

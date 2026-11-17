@@ -59,4 +59,28 @@
     <string name="a11y_keep_awake">إبقاء الشاشة مضاءة</string>
     <string name="a11y_keep_awake_detail">أثناء تشغيل الرحلة</string>
     <string name="a11y_done">تم</string>
+    <string name="a11y_try">جرّب</string>
+
+    <string name="route_a11y_label">الخط %1$s، %2$s.</string>
+    <string name="band_complete_kicker">اكتملت الرحلة</string>
+    <string name="band_complete_detail">لا توجد محطات أخرى على هذا الخط.</string>
+    <string name="band_searching_kicker">جارٍ البحث</string>
+    <string name="band_searching_headline">الاقتراب من %1$s</string>
+    <string name="band_searching_detail">جارٍ البحث عن إعلانات هذه المحطة.</string>
+    <string name="band_connecting_kicker">جارٍ الاتصال</string>
+    <string name="band_connecting_detail">جارٍ الانضمام إلى إعلانات هذه المحطة.</string>
+    <string name="band_playing_detail">يصل الصوت إلى جهاز السمع الخاص بك.</string>
+    <string name="band_travelling_kicker">بين المحطات</string>
+    <string name="band_travelling_headline">في الطريق إلى %1$s</string>
+    <string name="band_travelling_destination">وجهتك</string>
+    <string name="band_travelling_detail">سيتم الاتصال تلقائيًا عند وصولك.</string>
+    <string name="band_uncovered_kicker">لا توجد إعلانات</string>
+    <string name="band_uncovered_detail_next">هذه المحطة غير مجهزة بعد. لا يوجد أي خطأ — ستتصل مجددًا عند %1$s.</string>
+    <string name="band_uncovered_detail">هذه المحطة غير مجهزة بعد. لا يوجد أي خطأ.</string>
+    <string name="band_dropout_kicker">لا يوجد استقبال</string>
+    <string name="band_dropout_headline">انقطع الاتصال</string>
+    <string name="band_dropout_detail">جارٍ محاولة إعادة الاتصال بـ %1$s.</string>
+    <string name="arrived_stops_value">%1$d من %2$d</string>
+    <string name="action_routes">اختر خطًا</string>
+    <string name="action_accessibility">إعدادات إمكانية الوصول</string>
 </resources>

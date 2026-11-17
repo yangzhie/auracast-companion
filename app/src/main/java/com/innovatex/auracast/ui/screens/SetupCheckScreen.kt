@@ -1,5 +1,7 @@
 package com.innovatex.auracast.ui.screens
 
+import com.innovatex.auracast.R
+import androidx.compose.ui.res.stringResource
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
@@ -97,7 +99,7 @@ fun SetupCheckScreen(
             Spacer(Modifier.height(24.dp))
 
             Text(
-                text = "Before you start",
+                text = stringResource(R.string.setup_title),
                 style = MaterialTheme.typography.headlineLarge,
                 color = Paper
             )
@@ -113,12 +115,12 @@ fun SetupCheckScreen(
             ) {
                 CheckRow(
                     isSet = status.bluetoothReady,
-                    title = "Bluetooth",
+                    title = stringResource(R.string.setup_bluetooth),
                     detail = when {
-                        status.bluetoothReady -> "On"
+                        status.bluetoothReady -> stringResource(R.string.setup_bluetooth_on)
                         !status.bluetoothReady ->
-                            "Allow this app to use Bluetooth"
-                        else -> "Bluetooth is off — turn it on to find nearby stops"
+                            stringResource(R.string.setup_bluetooth_permission)
+                        else -> stringResource(R.string.setup_bluetooth_off)
                     }
                 )
 
@@ -126,11 +128,11 @@ fun SetupCheckScreen(
 
                 CheckRow(
                     isSet = status.locationGranted,
-                    title = "Location",
+                    title = stringResource(R.string.setup_location),
                     detail = if (status.locationGranted) {
-                        "Allowed while using the app"
+                        stringResource(R.string.setup_location_on)
                     } else {
-                        "Needed to know which stop you're at"
+                        stringResource(R.string.setup_location_why)
                     }
                 )
             }
@@ -170,11 +172,13 @@ fun SetupCheckScreen(
                 )
             ) {
                 Text(
-                    when {
-                        status.allReady -> "Continue"
-                        !status.permissionsGranted -> "Grant permissions"
-                        else -> "Turn on Bluetooth"
-                    }
+                    stringResource(
+                        when {
+                            status.allReady -> R.string.setup_continue
+                            !status.permissionsGranted -> R.string.setup_grant
+                            else -> R.string.setup_turn_on_bluetooth
+                        }
+                    )
                 )
             }
 
@@ -192,7 +196,7 @@ fun SetupCheckScreen(
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Open app settings", color = Muted)
+                    Text(stringResource(R.string.setup_open_settings), color = Muted)
                 }
             }
         }

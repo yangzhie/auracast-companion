@@ -29,6 +29,10 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,6 +47,8 @@ import com.innovatex.auracast.R
 import com.innovatex.auracast.data.AppLanguage
 import com.innovatex.auracast.data.AppSettings
 import com.innovatex.auracast.data.TextSizeOption
+import com.innovatex.auracast.ui.components.ConnectFlash
+import com.innovatex.auracast.ui.components.vibrateOnConnect
 import com.innovatex.auracast.ui.theme.Ink
 import com.innovatex.auracast.ui.theme.Muted
 import com.innovatex.auracast.ui.theme.OnViolet
@@ -67,113 +73,123 @@ fun AccessibilityScreen(
     val context = LocalContext.current
     val currentLanguage = AppSettings.currentLanguage(context)
 
-    Column(modifier = modifier.fillMaxSize()) {
+    // Counter, as on the journey screen, so every tap flashes
+    var flashTrigger by remember { mutableIntStateOf(0) }
 
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 24.dp)
-        ) {
-            Spacer(Modifier.height(24.dp))
-
-            Text(
-                text = stringResource(R.string.a11y_title),
-                style = MaterialTheme.typography.headlineLarge,
-                color = Paper
-            )
-            Spacer(Modifier.height(10.dp))
-            Text(
-                text = stringResource(R.string.a11y_subtitle),
-                style = MaterialTheme.typography.bodyLarge,
-                color = Muted
-            )
-
-            Spacer(Modifier.height(28.dp))
-
-            SectionLabel(stringResource(R.string.a11y_language))
-
-            Spacer(Modifier.height(12.dp))
-
-            LanguageCard(
-                current = currentLanguage,
-                onSelect = { AppSettings.setLanguage(context, it) }
-            )
-
-            Spacer(Modifier.height(28.dp))
-
-            SectionLabel(stringResource(R.string.a11y_text_size))
-
-            Spacer(Modifier.height(12.dp))
-
-            TextSizeCard(
-                current = AppSettings.textSize,
-                onSelect = { AppSettings.updateTextSize(it) }
-            )
-
-            Spacer(Modifier.height(28.dp))
-
-            SectionLabel(stringResource(R.string.a11y_alerts))
-
-            Spacer(Modifier.height(12.dp))
+    Box(modifier = modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize()) {
 
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(Surface)
-                    .padding(horizontal = 20.dp, vertical = 4.dp)
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState())
+                    .padding(horizontal = 24.dp)
             ) {
-                ToggleRow(
-                    title = stringResource(R.string.a11y_vibrate),
-                    detail = stringResource(R.string.a11y_vibrate_detail),
-                    checked = AppSettings.vibrateOnConnect,
-                    onCheckedChange = { AppSettings.updateVibrateOnConnect(it) }
+                Spacer(Modifier.height(24.dp))
+
+                Text(
+                    text = stringResource(R.string.a11y_title),
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = Paper
                 )
-                RowDivider()
-                ToggleRow(
-                    title = stringResource(R.string.a11y_flash),
-                    detail = stringResource(R.string.a11y_flash_detail),
-                    checked = AppSettings.flashOnConnect,
-                    onCheckedChange = { AppSettings.updateFlashOnConnect(it) }
+                Spacer(Modifier.height(10.dp))
+                Text(
+                    text = stringResource(R.string.a11y_subtitle),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Muted
                 )
+
+                Spacer(Modifier.height(28.dp))
+
+                SectionLabel(stringResource(R.string.a11y_language))
+
+                Spacer(Modifier.height(12.dp))
+
+                LanguageCard(
+                    current = currentLanguage,
+                    onSelect = { AppSettings.setLanguage(context, it) }
+                )
+
+                Spacer(Modifier.height(28.dp))
+
+                SectionLabel(stringResource(R.string.a11y_text_size))
+
+                Spacer(Modifier.height(12.dp))
+
+                TextSizeCard(
+                    current = AppSettings.textSize,
+                    onSelect = { AppSettings.updateTextSize(it) }
+                )
+
+                Spacer(Modifier.height(28.dp))
+
+                SectionLabel(stringResource(R.string.a11y_alerts))
+
+                Spacer(Modifier.height(12.dp))
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Surface)
+                        .padding(horizontal = 20.dp, vertical = 4.dp)
+                ) {
+                    ToggleRow(
+                        title = stringResource(R.string.a11y_vibrate),
+                        detail = stringResource(R.string.a11y_vibrate_detail),
+                        checked = AppSettings.vibrateOnConnect,
+                        onCheckedChange = { AppSettings.updateVibrateOnConnect(it) },
+                        onTry = { vibrateOnConnect(context) }
+                    )
+                    RowDivider()
+                    ToggleRow(
+                        title = stringResource(R.string.a11y_flash),
+                        detail = stringResource(R.string.a11y_flash_detail),
+                        checked = AppSettings.flashOnConnect,
+                        onCheckedChange = { AppSettings.updateFlashOnConnect(it) },
+                        onTry = { flashTrigger++ }
+                    )
+                }
+
+                Spacer(Modifier.height(28.dp))
+
+                SectionLabel(stringResource(R.string.a11y_display))
+
+                Spacer(Modifier.height(12.dp))
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Surface)
+                        .padding(horizontal = 20.dp, vertical = 4.dp)
+                ) {
+                    ToggleRow(
+                        title = stringResource(R.string.a11y_keep_awake),
+                        detail = stringResource(R.string.a11y_keep_awake_detail),
+                        checked = AppSettings.keepScreenOn,
+                        onCheckedChange = { AppSettings.updateKeepScreenOn(it) }
+                    )
+                }
+
+                Spacer(Modifier.height(28.dp))
             }
 
-            Spacer(Modifier.height(28.dp))
-
-            SectionLabel(stringResource(R.string.a11y_display))
-
-            Spacer(Modifier.height(12.dp))
-
-            Column(
+            OutlinedButton(
+                onClick = onDone,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(Surface)
-                    .padding(horizontal = 20.dp, vertical = 4.dp)
+                    .padding(horizontal = 24.dp, vertical = 20.dp)
+                    // Min, not fixed — the label grows with the font setting.
+                    .defaultMinSize(minHeight = 56.dp),
+                shape = RoundedCornerShape(14.dp)
             ) {
-                ToggleRow(
-                    title = stringResource(R.string.a11y_keep_awake),
-                    detail = stringResource(R.string.a11y_keep_awake_detail),
-                    checked = AppSettings.keepScreenOn,
-                    onCheckedChange = { AppSettings.updateKeepScreenOn(it) }
-                )
+                Text(stringResource(R.string.a11y_done), color = Paper)
             }
-
-            Spacer(Modifier.height(28.dp))
         }
 
-        OutlinedButton(
-            onClick = onDone,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 20.dp)
-                // Min, not fixed — the label grows with the font setting.
-                .defaultMinSize(minHeight = 56.dp),
-            shape = RoundedCornerShape(14.dp)
-        ) {
-            Text(stringResource(R.string.a11y_done), color = Paper)
-        }
+        // Drawn over the whole screen, as it is during a journey
+        ConnectFlash(trigger = flashTrigger)
     }
 }
 
@@ -318,7 +334,9 @@ private fun ToggleRow(
     title: String,
     detail: String,
     checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit
+    onCheckedChange: (Boolean) -> Unit,
+    // Plays the alert once, so it can be checked without a journey
+    onTry: (() -> Unit)? = null
 ) {
     Row(
         modifier = Modifier
@@ -342,6 +360,26 @@ private fun ToggleRow(
                 style = MaterialTheme.typography.bodyMedium,
                 color = Muted
             )
+
+            if (onTry != null) {
+                Spacer(Modifier.height(8.dp))
+
+                /* Works whether or not the switch is on: it is how the
+                 * rider decides whether they want the alert at all.
+                 */
+                OutlinedButton(
+                    onClick = onTry,
+                    // Min, not fixed — the label grows with the font setting.
+                    modifier = Modifier.defaultMinSize(minHeight = 48.dp),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.a11y_try),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = Paper
+                    )
+                }
+            }
         }
 
         Spacer(Modifier.width(16.dp))

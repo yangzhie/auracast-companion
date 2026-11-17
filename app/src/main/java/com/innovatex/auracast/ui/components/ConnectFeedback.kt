@@ -1,6 +1,7 @@
 package com.innovatex.auracast.ui.components
 
 import android.content.Context
+import android.os.VibrationAttributes
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
@@ -36,12 +37,17 @@ fun vibrateOnConnect(context: Context) {
 
     if (!vibrator.hasVibrator()) return
 
+    /* Tagged as accessibility so Android treats it as feedback the rider
+     * depends on. Untagged, it counts as an unknown vibration, which the
+     * phone's own vibration settings are freer to mute.
+     */
     vibrator.vibrate(
         VibrationEffect.createWaveform(
             longArrayOf(0, 60, 90, 60),
             intArrayOf(0, 180, 0, 180),
             -1
-        )
+        ),
+        VibrationAttributes.createForUsage(VibrationAttributes.USAGE_ACCESSIBILITY)
     )
 }
 

@@ -59,4 +59,28 @@
     <string name="a11y_keep_awake">Mantener la pantalla encendida</string>
     <string name="a11y_keep_awake_detail">Mientras hay un viaje en curso</string>
     <string name="a11y_done">Hecho</string>
+    <string name="a11y_try">Probar</string>
+
+    <string name="route_a11y_label">Ruta %1$s, %2$s.</string>
+    <string name="band_complete_kicker">Viaje completado</string>
+    <string name="band_complete_detail">No hay más paradas en esta ruta.</string>
+    <string name="band_searching_kicker">Buscando</string>
+    <string name="band_searching_headline">Llegando a %1$s</string>
+    <string name="band_searching_detail">Buscando los anuncios de esta parada.</string>
+    <string name="band_connecting_kicker">Conectando</string>
+    <string name="band_connecting_detail">Uniéndose a los anuncios de esta parada.</string>
+    <string name="band_playing_detail">El audio llega a tu dispositivo auditivo.</string>
+    <string name="band_travelling_kicker">Entre paradas</string>
+    <string name="band_travelling_headline">De camino a %1$s</string>
+    <string name="band_travelling_destination">tu destino</string>
+    <string name="band_travelling_detail">Te conectarás automáticamente al llegar.</string>
+    <string name="band_uncovered_kicker">Sin anuncios</string>
+    <string name="band_uncovered_detail_next">Esta parada aún no está equipada. No pasa nada: te volverás a conectar en %1$s.</string>
+    <string name="band_uncovered_detail">Esta parada aún no está equipada. No pasa nada.</string>
+    <string name="band_dropout_kicker">Sin recepción</string>
+    <string name="band_dropout_headline">Conexión perdida</string>
+    <string name="band_dropout_detail">Intentando volver a conectar con %1$s.</string>
+    <string name="arrived_stops_value">%1$d de %2$d</string>
+    <string name="action_routes">Elegir una ruta</string>
+    <string name="action_accessibility">Ajustes de accesibilidad</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.innovatex.auracast.ui.screens
 
+import com.innovatex.auracast.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -63,7 +65,9 @@ fun ArrivedScreen(
     val allHeard = summary?.allCoveredStopsConnected == true
 
     // Distinction between user-ended journey and naturally-reached journey
-    val headline = if (completed) "You've arrived" else "Journey ended"
+    val headline = stringResource(
+        if (completed) R.string.arrived_title else R.string.arrived_ended_title
+    )
     val place = summary?.destinationName
 
     Column(modifier = modifier.fillMaxSize()) {
@@ -123,7 +127,7 @@ fun ArrivedScreen(
                     contentColor = OnViolet
                 )
             ) {
-                Text("Plan another journey")
+                Text(stringResource(R.string.arrived_plan_another))
             }
         }
     }
@@ -171,30 +175,32 @@ private fun SummaryCard(summary: JourneySummary) {
             .padding(horizontal = 20.dp, vertical = 6.dp)
     ) {
         SummaryRow(
-            label = if (summary.completed) {
-                "Stops with announcements"
-            } else {
-                "Stops heard so far"
-            },
-            value = "${summary.coveredStopsConnected} of ${summary.coveredStopsTotal}",
+            label = stringResource(
+                if (summary.completed) R.string.arrived_stops_heard else R.string.arrived_stops_so_far
+            ),
+            value = stringResource(
+                R.string.arrived_stops_value,
+                summary.coveredStopsConnected,
+                summary.coveredStopsTotal
+            ),
             valueColor = if (summary.allCoveredStopsConnected) ReceivingGreen else Paper
         )
 
         if (summary.uncoveredStopsPassed > 0) {
             RowDivider()
             SummaryRow(
-                label = "Stops not yet fitted",
+                label = stringResource(R.string.arrived_stops_unfitted),
                 value = summary.uncoveredStopsPassed.toString()
             )
         }
 
         RowDivider()
         SummaryRow(
-            label = "Journey time",
+            label = stringResource(R.string.arrived_time),
             value = if (summary.journeyMinutes < 1) {
-                "Under a minute"
+                stringResource(R.string.arrived_under_minute)
             } else {
-                "${summary.journeyMinutes} min"
+                stringResource(R.string.arrived_minutes, summary.journeyMinutes)
             }
         )
     }
