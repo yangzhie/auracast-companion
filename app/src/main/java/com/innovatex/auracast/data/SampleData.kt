@@ -16,8 +16,8 @@ object SampleData {
     )
 
     val routes = listOf(
-        TransitRoute("1", "1", "via Route 1", route1),
-        TransitRoute("2", "2", "via Route 2", route2)
+        TransitRoute("1", "1", "Route 1", route1),
+        TransitRoute("2", "2", "Route 2", route2)
     )
 
     fun routeById(id: String): TransitRoute =

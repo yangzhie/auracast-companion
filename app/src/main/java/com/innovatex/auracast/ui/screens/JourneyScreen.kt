@@ -179,16 +179,6 @@ fun JourneyScreen(
 
             Spacer(Modifier.height(20.dp))
 
-            /* The board is the only thing that can actually join a
-             * broadcast. Without it the stops below still advance and
-             * nothing plays, which reads as a hardware fault unless it
-             * is said plainly.
-             */
-            if (!boardConnected) {
-                BoardWarning()
-                Spacer(Modifier.height(14.dp))
-            }
-
             LinkBand(state = state)
 
             Spacer(Modifier.height(30.dp))
@@ -223,46 +213,6 @@ fun JourneyScreen(
             colors = ButtonDefaults.outlinedButtonColors(contentColor = AlertRed)
         ) {
             Text("End journey")
-        }
-    }
-}
-
-@Composable
-private fun BoardWarning() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(14.dp))
-            .background(Surface)
-            .border(1.dp, SignalAmber.copy(alpha = 0.35f), RoundedCornerShape(14.dp))
-            .padding(16.dp)
-            .semantics(mergeDescendants = true) {
-                liveRegion = LiveRegionMode.Polite
-                contentDescription =
-                    "Board not connected. Switch it on and keep it with you — " +
-                            "nothing can play without it."
-            },
-        verticalAlignment = Alignment.Top
-    ) {
-        Icon(
-            imageVector = Icons.Default.Warning,
-            contentDescription = null,
-            tint = SignalAmber,
-            modifier = Modifier.size(20.dp)
-        )
-        Spacer(Modifier.width(12.dp))
-        Column {
-            Text(
-                text = "Board not connected",
-                style = MaterialTheme.typography.titleSmall,
-                color = Paper
-            )
-            Spacer(Modifier.height(2.dp))
-            Text(
-                text = "Switch it on and keep it with you — nothing can play without it.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Muted
-            )
         }
     }
 }

@@ -81,12 +81,6 @@ fun RouteScreen(
                 style = MaterialTheme.typography.headlineLarge,
                 color = Paper
             )
-            Spacer(Modifier.height(10.dp))
-            Text(
-                text = "Coverage is still being rolled out, so some routes are only partly fitted.",
-                style = MaterialTheme.typography.bodyLarge,
-                color = Muted
-            )
 
             Spacer(Modifier.height(24.dp))
 
@@ -100,20 +94,6 @@ fun RouteScreen(
                     Spacer(Modifier.height(12.dp))
                 }
             }
-
-            Spacer(Modifier.height(8.dp))
-
-            Text(
-                text = "You can still follow a route with no fitted stops — " +
-                        "you just won't receive announcements on it.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Muted,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(Surface)
-                    .padding(20.dp)
-            )
 
             Spacer(Modifier.height(28.dp))
         }
@@ -169,7 +149,7 @@ private fun RouteCard(
             // One announcement; the tick is already implied by the role.
             .semantics(mergeDescendants = true) {
                 contentDescription =
-                    "Route ${route.routeNumber}, ${route.destination}. ${route.coverageSummary}"
+                    "Route ${route.routeNumber}, ${route.destination}."
             },
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -182,13 +162,6 @@ private fun RouteCard(
                 text = route.destination,
                 style = MaterialTheme.typography.titleMedium,
                 color = Paper
-            )
-            Spacer(Modifier.height(3.dp))
-            Text(
-                text = route.coverageSummary,
-                style = MaterialTheme.typography.bodyMedium,
-                // Dimmer again when there is nothing fitted to announce.
-                color = if (fitted) Muted else RouteLine
             )
         }
 

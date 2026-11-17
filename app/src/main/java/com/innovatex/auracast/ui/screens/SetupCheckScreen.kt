@@ -101,12 +101,6 @@ fun SetupCheckScreen(
                 style = MaterialTheme.typography.headlineLarge,
                 color = Paper
             )
-            Spacer(Modifier.height(10.dp))
-            Text(
-                text = "Two things need to be ready for announcements to reach you.",
-                style = MaterialTheme.typography.bodyLarge,
-                color = Muted
-            )
 
             Spacer(Modifier.height(28.dp))
 
@@ -140,10 +134,6 @@ fun SetupCheckScreen(
                     }
                 )
             }
-
-            Spacer(Modifier.height(20.dp))
-
-            ExplainerCard()
 
             Spacer(Modifier.height(28.dp))
         }
@@ -275,32 +265,6 @@ private fun StatusGlyph(accent: Color, isSet: Boolean) {
                 modifier = Modifier.size(16.dp)
             )
         }
-    }
-}
-
-@Composable
-private fun ExplainerCard() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-            .background(Surface)
-            .padding(20.dp)
-            .semantics(mergeDescendants = true) { }
-    ) {
-        Text(
-            text = "Why a board?",
-            style = MaterialTheme.typography.titleSmall,
-            color = Violet
-        )
-        Spacer(Modifier.height(8.dp))
-        Text(
-            text = "Android doesn't allow an app to join an Auracast broadcast, " +
-                    "so a small board does it for you. Your hearing aids pair with " +
-                    "the board, not with this phone.",
-            style = MaterialTheme.typography.bodyMedium,
-            color = Muted
-        )
     }
 }
 

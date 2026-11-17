@@ -11,11 +11,4 @@ data class TransitRoute(
 
     val totalStopCount: Int
         get() = stops.size
-
-    val coverageSummary: String
-        get() = if (coveredStopCount == 0) {
-            "No stops fitted yet"
-        } else {
-            "$coveredStopCount of $totalStopCount stops have announcements"
-        }
 }

@@ -65,11 +65,6 @@ fun ArrivedScreen(
     // Distinction between user-ended journey and naturally-reached journey
     val headline = if (completed) "You've arrived" else "Journey ended"
     val place = summary?.destinationName
-    val spoken = buildString {
-        append(headline)
-        if (place != null) append(if (completed) " at $place." else " at $place.")
-        append("Your journey has ended. Please be sure to disconnect your nRF52840 board and hearing device.")
-    }
 
     Column(modifier = modifier.fillMaxSize()) {
         Column(
@@ -88,7 +83,6 @@ fun ArrivedScreen(
             Column(
                 modifier = Modifier.semantics {
                     liveRegion = LiveRegionMode.Assertive
-                    contentDescription = spoken
                 }
             ) {
                 Text(
@@ -105,13 +99,6 @@ fun ArrivedScreen(
                         color = Violet
                     )
                 }
-
-                Spacer(Modifier.height(14.dp))
-                Text(
-                    text = "Your journey has ended. Please be sure to disconnect your nRF52840 board and hearing device.",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Muted
-                )
             }
 
             if (summary != null) {
