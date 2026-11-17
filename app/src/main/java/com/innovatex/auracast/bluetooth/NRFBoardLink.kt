@@ -93,19 +93,28 @@ class NRFBoardLink(
     /**
      * Asks the board to join a stop's broadcast.
      *
+     * Sent as 3 bytes: route ID (uint16, little-endian, as provisioned on
+     * the transmitters), then stop index. The board matches both, since
+     * stop indexes repeat across routes.
+     *
+     * @param routeId the route the stop belongs to
      * @param stopIndex the transmitter index, or 0 to stop listening
      */
-    fun requestStop(stopIndex: Int) {
+    fun requestStop(routeId: Int, stopIndex: Int) {
         val g = gatt
         val characteristic = commandCharacteristic
 
         // Check: GATT and characteristics enabled
         if (g == null || characteristic == null) {
-            Log.w(TAG, "Not connected to the board, dropping request for stop $stopIndex")
+            Log.w(TAG, "Not connected to the board, dropping request for route $routeId stop $stopIndex")
             return
         }
 
-        val payload = byteArrayOf(stopIndex.toByte())
+        val payload = byteArrayOf(
+            (routeId and 0xFF).toByte(),
+            ((routeId shr 8) and 0xFF).toByte(),
+            stopIndex.toByte()
+        )
 
         try {
             // Give payload to write to board
@@ -114,7 +123,7 @@ class NRFBoardLink(
                 payload,
                 BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
             )
-            Log.i(TAG, "Requested stop $stopIndex (status $status)")
+            Log.i(TAG, "Requested route $routeId stop $stopIndex (status $status)")
         } catch (e: SecurityException) {
             Log.e(TAG, "BLUETOOTH_CONNECT permission not granted", e)
         }

@@ -5,7 +5,8 @@ import com.innovatex.auracast.bluetooth.DiscoveredBroadcast
 // Interface for the app to create an action; NRF board carries it out
 sealed interface MatchDecision {
     // Join the transmitter's broadcast
-    data class Connect(val stopIndex: Int) : MatchDecision
+    // Route as well as stop: stop indexes repeat across routes
+    data class Connect(val routeId: Int, val stopIndex: Int) : MatchDecision
 
     // Disconnect from the current broadcast
     data object Disconnect : MatchDecision

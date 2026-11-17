@@ -119,7 +119,7 @@ class JourneyViewModel : ViewModel() {
         scanner?.stop()
         scanner = null
 
-        boardLink?.requestStop(STOP_NONE)
+        boardLink?.requestStop(ROUTE_NONE, STOP_NONE)
         boardLink?.disconnect()
         boardLink = null
 
@@ -212,13 +212,14 @@ class JourneyViewModel : ViewModel() {
 
         when (decision) {
             is MatchDecision.Connect -> {
-                boardLink?.requestStop(decision.stopIndex)
+                boardLink?.requestStop(decision.routeId, decision.stopIndex)
 
                 /* Move the journey to whichever stop carries this
                  * transmitter, so the UI names the right platform.
                  */
                 val routeIndex = current.route.stops.indexOfFirst {
-                    it.broadcast?.stopIndex == decision.stopIndex
+                    it.broadcast?.routeID == decision.routeId &&
+                        it.broadcast.stopIndex == decision.stopIndex
                 }
 
                 state = current.copy(
@@ -230,7 +231,7 @@ class JourneyViewModel : ViewModel() {
             }
 
             MatchDecision.Disconnect -> {
-                boardLink?.requestStop(STOP_NONE)
+                boardLink?.requestStop(ROUTE_NONE, STOP_NONE)
 
                 state = current.copy(
                     phase = JourneyPhase.TRAVELLING,
@@ -262,6 +263,9 @@ class JourneyViewModel : ViewModel() {
     private companion object {
         /** The board treats 0 as "stop listening". */
         const val STOP_NONE = 0
+
+        /** Ignored by the board when the stop is STOP_NONE. */
+        const val ROUTE_NONE = 0
 
         /** How long a transmitter can go unheard before it counts as gone. */
         const val STALE_AFTER_MILLIS = 15_000L

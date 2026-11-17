@@ -45,7 +45,7 @@ object MatchingEngine {
             val match = onRoute.firstOrNull { StopMatcher.matches(it.metadata, expected) }
 
             if (match != null) {
-                return MatchDecision.Connect(match.metadata.stopIndex)
+                return MatchDecision.Connect(match.metadata.routeID, match.metadata.stopIndex)
             }
         }
 
@@ -57,7 +57,7 @@ object MatchingEngine {
             .maxByOrNull { it.rssi }
 
         if (strongest != null) {
-            return MatchDecision.Connect(strongest.metadata.stopIndex)
+            return MatchDecision.Connect(strongest.metadata.routeID, strongest.metadata.stopIndex)
         }
 
         /* Nothing audible. If something was playing, the rider has left. */
